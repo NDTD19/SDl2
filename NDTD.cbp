@@ -40,6 +40,8 @@
 		<Unit filename="CommonFunction.h" />
 		<Unit filename="Exobject.cpp" />
 		<Unit filename="Exobject.h" />
+		<Unit filename="TextObject.cpp" />
+		<Unit filename="TextObject.h" />
 		<Unit filename="Threatobject.cpp" />
 		<Unit filename="Threatobject.h" />
 		<Unit filename="Timer.cpp" />

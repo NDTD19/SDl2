@@ -51,7 +51,7 @@ public:
 
     void InitBullet(BulletObject* p_bullet, SDL_Renderer* screen);
     void MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_limit);
-    void RemoveBullet(const int & idx);
+    void RemoveBullet(const int & idx, SDL_Renderer* screen);
 
 private:
 

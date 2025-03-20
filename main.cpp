@@ -9,9 +9,11 @@
 #include "Timer.h"
 #include "Threatobject.h"
 #include "Exobject.h"
+#include "TextObject.h"
 using namespace std;
 
 Base g_background;
+TTF_Font* font_time = NULL;
 
 bool InitData()
 {
@@ -43,6 +45,16 @@ bool InitData()
             {
                 success = false;
             }
+        }
+        if(TTF_Init() == -1)
+        {
+            success = false;
+        }
+
+        font_time = TTF_OpenFont("font//dlxfont_.ttf", 15);
+        if(font_time == NULL)
+        {
+            success = false;
         }
     }
     return success;
@@ -139,7 +151,7 @@ int main(int argc, char *argv[])
 
     //chay menu
     Menu menu;
-    if (!menu.loadFont("arial.ttf", 48))   // Tăng cỡ chữ
+    if (!menu.loadFont("font//ARIAL.ttf", 48))   // Tăng cỡ chữ
     {
         cout << "Failed to load font!\n";
         return -1;
@@ -180,6 +192,13 @@ int main(int argc, char *argv[])
     exp_main.set_clips();
     // so lan chet
     int num_die = 0;
+
+    // chỉ số thời gian
+
+    TextObject time_game;
+    time_game.SetColor(TextObject::WHITE_TEXT);
+
+
 
     bool is_quit = false;
     while(!is_quit)
@@ -223,7 +242,7 @@ int main(int argc, char *argv[])
                 SDL_Rect rect_player = player_.GetRectFrame();
                 bool bCol1 = false;
                 std::vector<BulletObject*> tBullet_list = p_threat->get_bullet_list();
-                for (int jj = tBullet_list.size() - 1; jj >= 0; --jj)
+                for (int jj = 0; jj < tBullet_list.size(); ++jj)
                 {
                     BulletObject* pt_bullet = tBullet_list.at(jj);
                     if (pt_bullet)
@@ -231,7 +250,7 @@ int main(int argc, char *argv[])
                         bCol1 = SDLCommonFunc::CheckCollision(pt_bullet->GetRect(), rect_player);
                         if (bCol1 == true)
                         {
-                            p_threat->RemoveBullet(jj);
+                            p_threat->RemoveBullet(jj, g_screen);
                             break;
                         }
                     }
@@ -250,7 +269,7 @@ int main(int argc, char *argv[])
 
                         exp_main.set_frame(ex);
                         exp_main.SetRect(x_pos, y_pos);
-                        SDL_Delay(100);
+//                        SDL_Delay(100);
                         exp_main.Show(g_screen);
                         SDL_RenderPresent(g_screen);
                     }
@@ -262,10 +281,11 @@ int main(int argc, char *argv[])
                         SDL_Delay(800);
                         continue;
                     }
-                    else{
-                    p_threat->Free();
-                    close();
-                    gameOverAndExit();
+                    else
+                    {
+                        p_threat->Free();
+                        close();
+                        gameOverAndExit();
                     }
                 }
 
@@ -304,7 +324,7 @@ int main(int argc, char *argv[])
 
                                 exp_threat.set_frame(j);
                                 exp_threat.SetRect(x_pos, y_pos);
-                                SDL_Delay(100);
+//                                SDL_Delay(100);
                                 exp_threat.Show(g_screen);
                             }
 
@@ -316,6 +336,24 @@ int main(int argc, char *argv[])
                     }
                 }
             }
+        }
+
+        //in thời gian
+        std::string str_time = "Time: ";
+        Uint32 time_val = SDL_GetTicks() / 1000;
+        Uint32 val_time = 200 - time_val;
+        if(val_time <= 0)
+        {
+            close();
+            gameOverAndExit();
+        }
+        else{
+            std::string str_val = std::to_string(val_time);
+            str_time += str_val;
+
+            time_game.SetText(str_time);
+            time_game.LoadFromRenderText(font_time, g_screen);
+            time_game.RenderText(g_screen, SCREEN_WIDTH-200, 15);
         }
 
         SDL_RenderPresent(g_screen);

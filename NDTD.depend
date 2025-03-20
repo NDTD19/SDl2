@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1742401931 source:c:\users\tien dung\desktop\ndtd\ndtd\main.cpp
+1742492633 source:c:\users\tien dung\desktop\ndtd\ndtd\main.cpp
 	<bits/stdc++.h>
 	<windows.h>
 	<tchar.h>
@@ -10,6 +10,8 @@
 	"maincharacter.h"
 	"Timer.h"
 	"Threatobject.h"
+	"Exobject.h"
+	"TextObject.h"
 
 1742398653 source:c:\users\tien dung\desktop\ndtd\ndtd\commonfunction.cpp
 	<bits/stdc++.h>
@@ -72,11 +74,11 @@
 	"CommonFunction.h"
 	"Base.h"
 
-1742400970 source:c:\users\tien dung\desktop\ndtd\ndtd\threatobject.cpp
+1742491147 source:c:\users\tien dung\desktop\ndtd\ndtd\threatobject.cpp
 	<bits/stdc++.h>
 	"Threatobject.h"
 
-1742397598 c:\users\tien dung\desktop\ndtd\ndtd\threatobject.h
+1742491160 c:\users\tien dung\desktop\ndtd\ndtd\threatobject.h
 	"CommonFunction.h"
 	"Base.h"
 	"Bulletobject.h"
@@ -88,4 +90,11 @@
 1742404963 c:\users\tien dung\desktop\ndtd\ndtd\exobject.h
 	"CommonFunction.h"
 	"Base.h"
+
+1742492845 source:c:\users\tien dung\desktop\ndtd\ndtd\textobject.cpp
+	<bits/stdc++.h>
+	"TextObject.h"
+
+1742489069 c:\users\tien dung\desktop\ndtd\ndtd\textobject.h
+	"CommonFunction.h"
 
