@@ -1,0 +1,91 @@
+# depslib dependency file v1.0
+1742401931 source:c:\users\tien dung\desktop\ndtd\ndtd\main.cpp
+	<bits/stdc++.h>
+	<windows.h>
+	<tchar.h>
+	"CommonFunction.h"
+	"Base.h"
+	"game_map.h"
+	"menu.h"
+	"maincharacter.h"
+	"Timer.h"
+	"Threatobject.h"
+
+1742398653 source:c:\users\tien dung\desktop\ndtd\ndtd\commonfunction.cpp
+	<bits/stdc++.h>
+	"CommonFunction.h"
+
+1742398653 c:\users\tien dung\desktop\ndtd\ndtd\commonfunction.h
+	<windows.h>
+	<string>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+
+1741707704 source:c:\users\tien dung\desktop\ndtd\ndtd\base.cpp
+	<bits/stdc++.h>
+	"Base.h"
+
+1741537761 c:\users\tien dung\desktop\ndtd\ndtd\base.h
+	"CommonFunction.h"
+
+1742291003 source:c:\users\tien dung\desktop\ndtd\ndtd\game_map.cpp
+	<bits/stdc++.h>
+	"game_map.h"
+
+1741621470 c:\users\tien dung\desktop\ndtd\ndtd\game_map.h
+	"CommonFunction.h"
+	"Base.h"
+
+1742401581 c:\users\tien dung\desktop\ndtd\ndtd\menu.h
+	"CommonFunction.h"
+	"Base.h"
+
+1741427307 source:c:\users\tien dung\desktop\ndtd\ndtd\menu.cpp
+	"menu.h"
+	<iostream>
+
+1742407888 c:\users\tien dung\desktop\ndtd\ndtd\maincharacter.h
+	<vector>
+	"CommonFunction.h"
+	"Base.h"
+	"Bulletobject.h"
+
+1742396615 source:c:\users\tien dung\desktop\ndtd\ndtd\maincharacter.cpp
+	<bits/stdc++.h>
+	"maincharacter.h"
+
+1741685787 c:\users\tien dung\desktop\ndtd\ndtd\timer.h
+	"CommonFunction.h"
+	"Base.h"
+
+1741685787 source:c:\users\tien dung\desktop\ndtd\ndtd\timer.cpp
+	<bits/stdc++.h>
+	"Timer.h"
+
+1742323215 source:c:\users\tien dung\desktop\ndtd\ndtd\bulletobject.cpp
+	<bits/stdc++.h>
+	"Bulletobject.h"
+
+1742323208 c:\users\tien dung\desktop\ndtd\ndtd\bulletobject.h
+	"CommonFunction.h"
+	"Base.h"
+
+1742400970 source:c:\users\tien dung\desktop\ndtd\ndtd\threatobject.cpp
+	<bits/stdc++.h>
+	"Threatobject.h"
+
+1742397598 c:\users\tien dung\desktop\ndtd\ndtd\threatobject.h
+	"CommonFunction.h"
+	"Base.h"
+	"Bulletobject.h"
+
+1742405038 source:c:\users\tien dung\desktop\ndtd\ndtd\exobject.cpp
+	<bits/stdc++.h>
+	"Exobject.h"
+
+1742404963 c:\users\tien dung\desktop\ndtd\ndtd\exobject.h
+	"CommonFunction.h"
+	"Base.h"
+
