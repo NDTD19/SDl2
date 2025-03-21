@@ -10,6 +10,7 @@
 #include "Threatobject.h"
 #include "Exobject.h"
 #include "TextObject.h"
+#include "image_icon.h"
 using namespace std;
 
 Base g_background;
@@ -156,6 +157,8 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+
+
     if (!menu.loadBackground("animation/background.png", g_screen))   // Load background cho menu
     {
         cout << "Failed to load menu background!\n";
@@ -168,6 +171,8 @@ int main(int argc, char *argv[])
         close();
         return 0;  // Người dùng chọn thoát
     }
+
+
     // chạy map
     GameMap game_map;
     game_map.LoadMap("map/map01.dat");
@@ -178,12 +183,19 @@ int main(int argc, char *argv[])
     player_.set_clips();
 
 
+    ImageIcon icon_image;
+    icon_image.Init(g_screen);
+
+
+
     std::vector<ThreatsObject*> threats_list = MakeThreatList();
 
     ExplosionObject exp_threat;
     bool tRet = exp_threat.LoadImg("animation//exp3.png", g_screen);
     if(!tRet) return -1;
     exp_threat.set_clips();
+
+
 
     ExplosionObject exp_main;
     bool mRet = exp_main.LoadImg("animation//exp3.png", g_screen);
@@ -232,6 +244,8 @@ int main(int argc, char *argv[])
         player_.Show(g_screen);
         game_map.SetMap(map_data);
         game_map.DrawMap(g_screen);
+
+        icon_image.Show(g_screen);
 
         for(int  i = 0; i < threats_list.size(); i++)
         {
@@ -285,6 +299,8 @@ int main(int argc, char *argv[])
                         player_.SetRect(0,0);
                         player_.set_comeback_time(60);
                         SDL_Delay(800);
+                        icon_image.Decrease();
+                        icon_image.Render(g_screen);
                         continue;
                     }
                     else
