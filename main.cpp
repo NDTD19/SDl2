@@ -62,7 +62,7 @@ bool InitData()
 
 bool LoadBackground()
 {
-    bool ret = g_background.LoadImg("bautroi.png", g_screen);
+    bool ret = g_background.LoadImg("animation/bautroi.png", g_screen);
     if(ret == false)
         return false;
 
@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    if (!menu.loadBackground("background.png", g_screen))   // Load background cho menu
+    if (!menu.loadBackground("animation/background.png", g_screen))   // Load background cho menu
     {
         cout << "Failed to load menu background!\n";
         return -1;
