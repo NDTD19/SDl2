@@ -124,7 +124,6 @@ std::vector<ThreatsObject*> MakeThreatList()
 
             BulletObject* p_bullet = new BulletObject();
             p_threat->InitBullet(p_bullet, g_screen);
-
             list_threats.push_back(p_threat);
         }
     }
@@ -151,7 +150,7 @@ int main(int argc, char *argv[])
 
     //chay menu
     Menu menu;
-    if (!menu.loadFont("font//ARIAL.ttf", 48))   // Tăng cỡ chữ
+    if (!menu.loadFont("font//1.ttf", 60))   // Tăng cỡ chữ
     {
         cout << "Failed to load font!\n";
         return -1;
@@ -197,6 +196,13 @@ int main(int argc, char *argv[])
 
     TextObject time_game;
     time_game.SetColor(TextObject::WHITE_TEXT);
+
+    TextObject score_game;
+    score_game.SetColor(TextObject::WHITE_TEXT);
+    UINT score_value = 0;
+
+    TextObject apple_game;
+    apple_game.SetColor(TextObject::WHITE_TEXT);
 
 
 
@@ -317,6 +323,7 @@ int main(int argc, char *argv[])
 
                         if(bCol)
                         {
+                            score_value++;
                             for(int j = 0; j < 8; j++)
                             {
                                 int x_pos = p_bullet->GetRect().x - frame_exp_height * 0.5;
@@ -355,6 +362,20 @@ int main(int argc, char *argv[])
             time_game.LoadFromRenderText(font_time, g_screen);
             time_game.RenderText(g_screen, SCREEN_WIDTH-200, 15);
         }
+
+        std::string val_str_score = std::to_string(score_value);
+        std::string str_score("Score: ");
+        str_score += val_str_score;
+        score_game.SetText(str_score);
+        score_game.LoadFromRenderText(font_time, g_screen);
+        score_game.RenderText(g_screen, SCREEN_WIDTH*0.5 - 50, 15);
+
+        int apple_count = player_.Getapplecount();
+        std::string apple_str = std::to_string(apple_count);
+
+        apple_game.SetText(apple_str);
+        apple_game.LoadFromRenderText(font_time, g_screen);
+        apple_game.RenderText(g_screen, SCREEN_WIDTH*0.5 - 250, 15);
 
         SDL_RenderPresent(g_screen);
 

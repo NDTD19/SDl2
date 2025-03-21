@@ -47,6 +47,8 @@ public:
     int get_frame_width()const {return width_frame;}
     int get_frame_height() const {return height_frame;}
     void set_comeback_time(const int& cb_time) {comeback_time = cb_time;}
+    int Getapplecount()const {return money_count;}
+
 private:
 
     int money_count;

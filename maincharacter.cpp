@@ -255,8 +255,8 @@ void Mainobject::HandleBullet(SDL_Renderer* des)
                 int bullet_distance_left = rect_.x - p_bullet->GetRect().x + width_frame;
                 int bullet_distance_right = p_bullet->GetRect().x - rect_.x + width_frame;
 
-                if((bullet_distance_left > 0 && bullet_distance_left < 550) ||
-                   (bullet_distance_right > 0 && bullet_distance_right < 550))
+                if((bullet_distance_left > 0 && bullet_distance_left < 600) ||
+                   (bullet_distance_right > 0 && bullet_distance_right < 600))
                 {
                     p_bullet->HandleMove(SCREEN_WIDTH, SCREEN_HEIGHT);
                     p_bullet->Render(des);
