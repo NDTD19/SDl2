@@ -57,3 +57,26 @@ void ImageIcon::InitCrease()
     pos_list.push_back(last_pos);
 }
 
+Appleicon::Appleicon()
+{
+    x_pos = 0;
+    y_pos = 0;
+}
+
+Appleicon::~Appleicon()
+{
+
+}
+
+void Appleicon::Init(SDL_Renderer* screen)
+{
+    bool ret = LoadImg("animation/tao.png", screen);
+}
+
+void Appleicon::Show(SDL_Renderer* screen)
+{
+    rect_.x = x_pos;
+    rect_.y = y_pos;
+    Render(screen);
+}
+

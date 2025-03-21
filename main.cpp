@@ -186,6 +186,10 @@ int main(int argc, char *argv[])
     ImageIcon icon_image;
     icon_image.Init(g_screen);
 
+    Appleicon apple_icon;
+    apple_icon.Init(g_screen);
+    apple_icon.SetPos(SCREEN_WIDTH*0.5-295,5);
+
 
 
     std::vector<ThreatsObject*> threats_list = MakeThreatList();
@@ -240,12 +244,14 @@ int main(int argc, char *argv[])
 
         player_.HandleBullet(g_screen);
         player_.SetMapXY(map_data.start_x, map_data.start_y);
-        player_.Doplayer(map_data);
+        player_.Doplayer(map_data, icon_image);
         player_.Show(g_screen);
+
         game_map.SetMap(map_data);
         game_map.DrawMap(g_screen);
 
         icon_image.Show(g_screen);
+        apple_icon.Show(g_screen);
 
         for(int  i = 0; i < threats_list.size(); i++)
         {
@@ -388,7 +394,6 @@ int main(int argc, char *argv[])
 
         int apple_count = player_.Getapplecount();
         std::string apple_str = std::to_string(apple_count);
-
         apple_game.SetText(apple_str);
         apple_game.LoadFromRenderText(font_time, g_screen);
         apple_game.RenderText(g_screen, SCREEN_WIDTH*0.5 - 250, 15);

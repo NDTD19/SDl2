@@ -6,6 +6,7 @@
 #include "CommonFunction.h"
 #include "Base.h"
 #include "Bulletobject.h"
+#include "image_icon.h"
 
 #define GRAVITY_SPEED 0.8
 #define MAX_FALLSPEED 10
@@ -29,7 +30,7 @@ public:
     void HandelInputAction(SDL_Event events, SDL_Renderer* screen);
     void set_clips(); // xử lý hình ảnh cho frame
 
-    void Doplayer(Map& map_data); //check giới hạn bản đồ kiểm tra va chạm
+    void Doplayer(Map& map_data, ImageIcon& icon); //check giới hạn bản đồ kiểm tra va chạm
     void CheckMap(Map& map_data); // check nó rơi xuống chạm vào map
     void SetMapXY(const int mapx, const int mapy) { map_x_ = mapx; map_y_ = mapy; }
     void EntityOnMap(Map& map_data);

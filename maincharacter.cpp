@@ -295,7 +295,7 @@ void Mainobject::RemoveBullet(const int & idx)
     }
 }
 
-void Mainobject::Doplayer(Map& map_data)
+void Mainobject::Doplayer(Map& map_data, ImageIcon& icon)
 {
     if(comeback_time == 0)
     {
@@ -349,6 +349,7 @@ void Mainobject::Doplayer(Map& map_data)
             y_pos_ = 0;
             x_val_ = 0;
             y_val_ = 0;
+            icon.Decrease();
         }
     }
 }
