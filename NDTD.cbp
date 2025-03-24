@@ -48,6 +48,8 @@
 		<Unit filename="Timer.h" />
 		<Unit filename="game_map.cpp" />
 		<Unit filename="game_map.h" />
+		<Unit filename="image_icon.cpp" />
+		<Unit filename="image_icon.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="maincharacter.cpp" />
 		<Unit filename="maincharacter.h" />

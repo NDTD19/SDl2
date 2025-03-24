@@ -21,6 +21,8 @@ Mainobject::Mainobject()
     map_y_ = 0;
     comeback_time = 0;
     money_count = 0;
+    flag_count = 0;
+    is_respawning_ = false;
 }
 
 Mainobject::~Mainobject()
@@ -121,6 +123,10 @@ void Mainobject::increaseMoney()
 {
     money_count++;
 }
+void Mainobject::increaseFlag()
+{
+    flag_count++;
+}
 
 void Mainobject::Show(SDL_Renderer* des)
 {
@@ -162,6 +168,19 @@ void Mainobject::Show(SDL_Renderer* des)
 
 }
 
+bool Mainobject::LoadSound()
+{
+    g_shoot_sound = Mix_LoadWAV("sound/fire1.wav");
+    g_jump_sound = Mix_LoadWAV("sound/jump.wav");
+
+    if (g_shoot_sound == NULL || g_jump_sound == NULL)
+    {
+        std::cout << "Failed to load sound! SDL_mixer Error: " << Mix_GetError() << std::endl;
+        return false;
+    }
+    return true;
+}
+
 void Mainobject::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
 {
     if(events.type == SDL_KEYDOWN)
@@ -185,6 +204,7 @@ void Mainobject::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
         case SDLK_UP:  // Xử lý khi nhấn phím Space để nhảy
         {
             input_type_.jump_ = 1;
+            Mix_PlayChannel(-1, g_jump_sound, 0);
         }
         break;
         //tao vien dan
@@ -208,6 +228,9 @@ void Mainobject::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
             p_bullet->set_is_move(true);
 
             p_bullet_list.push_back(p_bullet);
+
+            // Thêm âm thanh bắn đạn
+            Mix_PlayChannel(-1, g_shoot_sound, 0);
         }
         break;
         default:
@@ -256,7 +279,7 @@ void Mainobject::HandleBullet(SDL_Renderer* des)
                 int bullet_distance_right = p_bullet->GetRect().x - rect_.x + width_frame;
 
                 if((bullet_distance_left > 0 && bullet_distance_left < 600) ||
-                   (bullet_distance_right > 0 && bullet_distance_right < 600))
+                        (bullet_distance_right > 0 && bullet_distance_right < 600))
                 {
                     p_bullet->HandleMove(SCREEN_WIDTH, SCREEN_HEIGHT);
                     p_bullet->Render(des);
@@ -295,7 +318,7 @@ void Mainobject::RemoveBullet(const int & idx)
     }
 }
 
-void Mainobject::Doplayer(Map& map_data, ImageIcon& icon)
+void Mainobject::Doplayer(Map& map_data, ImageIcon& icon_image)
 {
     if(comeback_time == 0)
     {
@@ -328,7 +351,7 @@ void Mainobject::Doplayer(Map& map_data, ImageIcon& icon)
             input_type_.jump_ = 0;
         }
 
-        CheckMap(map_data);
+        CheckMap(map_data, icon_image);
         EntityOnMap(map_data);
     }
     if(comeback_time > 0)
@@ -337,6 +360,7 @@ void Mainobject::Doplayer(Map& map_data, ImageIcon& icon)
         if(comeback_time == 0)
         {
             on_ground = false;
+            is_respawning_ = false;
             if(x_pos_ > 256)
             {
                 x_pos_ -= 256; // 4 o type map
@@ -349,7 +373,6 @@ void Mainobject::Doplayer(Map& map_data, ImageIcon& icon)
             y_pos_ = 0;
             x_val_ = 0;
             y_val_ = 0;
-            icon.Decrease();
         }
     }
 }
@@ -376,7 +399,7 @@ void Mainobject::EntityOnMap(Map& map_data)
     }
 }
 
-void Mainobject::CheckMap(Map& map_data)
+void Mainobject::CheckMap(Map& map_data, ImageIcon& icon_image)
 {
     int x1 = 0;// giới hạn ktra theo chiều x
     int x2 = 0;
@@ -429,6 +452,12 @@ void Mainobject::CheckMap(Map& map_data)
                 map_data.T[y2][x1] = 0;
                 increaseMoney();
             }
+            else if(val1 == STATE_FLAG || val2 == STATE_FLAG)
+            {
+                map_data.T[y1][x1] = 0;
+                map_data.T[y2][x1] = 0;
+                increaseFlag();
+            }
             else
             {
                 if(val1 != BLANK_TYPE || val2 != BLANK_TYPE)
@@ -461,6 +490,12 @@ void Mainobject::CheckMap(Map& map_data)
                 map_data.T[y2][x2] = 0;
                 increaseMoney();
             }
+            else if(val1 == STATE_FLAG || val2 == STATE_FLAG)
+            {
+                map_data.T[y2][x1] = 0;
+                map_data.T[y2][x2] = 0;
+                increaseFlag();
+            }
             else
             {
                 if(val1 != BLANK_TYPE || val2 != BLANK_TYPE)
@@ -481,6 +516,12 @@ void Mainobject::CheckMap(Map& map_data)
                 map_data.T[y1][x1] = 0;
                 map_data.T[y1][x2] = 0;
                 increaseMoney();
+            }
+            else if(val1 == STATE_FLAG || val2 == STATE_FLAG)
+            {
+                map_data.T[y1][x1] = 0;
+                map_data.T[y1][x2] = 0;
+                increaseFlag();
             }
             else
             {
@@ -505,6 +546,23 @@ void Mainobject::CheckMap(Map& map_data)
     }
     if(y_pos_ > map_data.map_y)
     {
-        comeback_time = 60;
+        if (!is_respawning_)  // Chỉ trừ mạng nếu không phải đang hồi sinh
+        {
+            icon_image.Decrease(); // Trừ 1 mạng
+        }
+
+        is_respawning_ = true; // Đánh dấu đang hồi sinh
+        comeback_time = 60;  // Đặt thời gian hồi sinh
     }
 }
+
+
+
+void Mainobject::FreeSound()
+{
+    Mix_FreeChunk(g_shoot_sound);
+    Mix_FreeChunk(g_jump_sound);
+    g_shoot_sound = NULL;
+    g_jump_sound = NULL;
+}
+

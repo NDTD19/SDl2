@@ -7,6 +7,7 @@
 #include "Base.h"
 #include "Bulletobject.h"
 #include "image_icon.h"
+#include "game_map.h"
 
 #define GRAVITY_SPEED 0.8
 #define MAX_FALLSPEED 10
@@ -30,8 +31,8 @@ public:
     void HandelInputAction(SDL_Event events, SDL_Renderer* screen);
     void set_clips(); // xử lý hình ảnh cho frame
 
-    void Doplayer(Map& map_data, ImageIcon& icon); //check giới hạn bản đồ kiểm tra va chạm
-    void CheckMap(Map& map_data); // check nó rơi xuống chạm vào map
+    void Doplayer(Map& map_data, ImageIcon& icon_image); //check giới hạn bản đồ kiểm tra va chạm
+    void CheckMap(Map& map_data, ImageIcon& icon_image); // check nó rơi xuống chạm vào map
     void SetMapXY(const int mapx, const int mapy) { map_x_ = mapx; map_y_ = mapy; }
     void EntityOnMap(Map& map_data);
 
@@ -45,14 +46,20 @@ public:
     void HandleBullet(SDL_Renderer* des);
     void RemoveBullet(const int & idx);
     void increaseMoney();
+    void increaseFlag();
     int get_frame_width()const {return width_frame;}
     int get_frame_height() const {return height_frame;}
     void set_comeback_time(const int& cb_time) {comeback_time = cb_time;}
     int Getapplecount()const {return money_count;}
+    int Getflagcount()const {return flag_count;}
+
+    bool LoadSound();  // Hàm load âm thanh
+    void FreeSound();  // Hàm giải phóng âm thanh
 
 private:
 
     int money_count;
+    int flag_count;
     std::vector<BulletObject*> p_bullet_list;
     float x_val_;
     float y_val_;
@@ -73,7 +80,9 @@ private:
     int map_y_;
 
     int comeback_time;
-
+    bool is_respawning_;
+    Mix_Chunk* g_shoot_sound = NULL;
+    Mix_Chunk* g_jump_sound = NULL;
 };
 
 

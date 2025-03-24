@@ -1,6 +1,17 @@
 #include <bits/stdc++.h>
 #include "game_map.h"
 // đọc dữ liệu từ file bản đồ bên ngoài
+
+GameMap::GameMap()
+{
+
+}
+
+GameMap::~GameMap()
+{
+
+}
+
 void GameMap::LoadMap(char* name)
 {
     FILE* fp = NULL;
@@ -41,6 +52,8 @@ void GameMap::LoadMap(char* name)
     game_map.file_name = name;
     fclose(fp);
 }
+
+
 // load các image của những ảnh tương ứng
 void GameMap::LoadTiles(SDL_Renderer* screen)
 {

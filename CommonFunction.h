@@ -30,7 +30,7 @@ extern TTF_Font* g_font;
 #define MAX_MAP_Y 10 // max size dọc của map
 
 #define STATE_MONEY 4
-
+#define STATE_FLAG 5
 typedef struct Input
 {
     int left_;
