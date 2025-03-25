@@ -66,12 +66,22 @@ bool InitData()
     }
     return success;
 }
-
+int stt = 0;
 bool LoadBackground()
 {
-    bool ret = g_background.LoadImg("animation/bautroi.png", g_screen);
-    if(ret == false)
+    if(stt == 1)
+    {
+        bool ret = g_background.LoadImg("animation/bautroi.png", g_screen);
+        if(ret == false)
         return false;
+    }
+    else if(stt == 2)
+    {
+        bool ret = g_background.LoadImg("animation/background.png", g_screen);
+        if(ret == false)
+        return false;
+    }
+
 
     return true;
 }
@@ -145,7 +155,7 @@ void gameOverAndExit()
     exit(0);
 }
 
-int stt = 0;
+
 
 int main(int argc, char *argv[])
 {
@@ -197,7 +207,7 @@ int main(int argc, char *argv[])
             close();
             return 0;  // Người dùng chọn thoát
         }
-        game_map.LoadMap("map/map01.dat");
+        game_map.LoadMap("map/map02.dat");
         game_map.LoadTiles(g_screen);
 
     }
@@ -256,10 +266,10 @@ int main(int argc, char *argv[])
     TextObject apple_game;
     apple_game.SetColor(TextObject::WHITE_TEXT);
 
-//    if (Mix_PlayingMusic() == 0)
-//    {
-//        Mix_PlayMusic(g_background_music, -1); // Phát nhạc nền lặp vô hạn
-//    }
+    if (Mix_PlayingMusic() == 0)
+    {
+        Mix_PlayMusic(g_background_music, -1); // Phát nhạc nền lặp vô hạn
+    }
 
     bool is_quit = false;
     while(!is_quit)
@@ -401,7 +411,6 @@ int main(int argc, char *argv[])
                                 exp_threat.Show(g_screen);
                             }
 
-
                             player_.RemoveBullet(i);
                             obj_threat->Free();
                             threats_list.erase(threats_list.begin() + t);
@@ -509,7 +518,7 @@ int main(int argc, char *argv[])
             p_threat = NULL;
         }
     }
-
+    player_.FreeSound();
     threats_list.clear();
     Mix_FreeMusic(g_background_music);
     Mix_FreeChunk(g_hit_sound);

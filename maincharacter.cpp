@@ -172,8 +172,9 @@ bool Mainobject::LoadSound()
 {
     g_shoot_sound = Mix_LoadWAV("sound/fire1.wav");
     g_jump_sound = Mix_LoadWAV("sound/jump.wav");
+    g_apple_sound = Mix_LoadWAV("sound/tao.wav");
 
-    if (g_shoot_sound == NULL || g_jump_sound == NULL)
+    if (g_shoot_sound == NULL || g_jump_sound == NULL || g_apple_sound == NULL)
     {
         std::cout << "Failed to load sound! SDL_mixer Error: " << Mix_GetError() << std::endl;
         return false;
@@ -428,7 +429,14 @@ void Mainobject::CheckMap(Map& map_data, ImageIcon& icon_image)
             {
                 map_data.T[y1][x2] = 0;
                 map_data.T[y2][x2] = 0;
+                Mix_PlayChannel(-1, g_apple_sound, 0);
                 increaseMoney();
+            }
+            else if(val1 == STATE_FLAG || val2 == STATE_FLAG)
+            {
+                map_data.T[y1][x2] = 0;
+                map_data.T[y2][x2] = 0;
+                increaseFlag();
             }
             else
             {
@@ -450,6 +458,7 @@ void Mainobject::CheckMap(Map& map_data, ImageIcon& icon_image)
             {
                 map_data.T[y1][x1] = 0;
                 map_data.T[y2][x1] = 0;
+                Mix_PlayChannel(-1, g_apple_sound, 0);
                 increaseMoney();
             }
             else if(val1 == STATE_FLAG || val2 == STATE_FLAG)
@@ -488,6 +497,7 @@ void Mainobject::CheckMap(Map& map_data, ImageIcon& icon_image)
             {
                 map_data.T[y2][x1] = 0;
                 map_data.T[y2][x2] = 0;
+                Mix_PlayChannel(-1, g_apple_sound, 0);
                 increaseMoney();
             }
             else if(val1 == STATE_FLAG || val2 == STATE_FLAG)
@@ -515,6 +525,7 @@ void Mainobject::CheckMap(Map& map_data, ImageIcon& icon_image)
             {
                 map_data.T[y1][x1] = 0;
                 map_data.T[y1][x2] = 0;
+                Mix_PlayChannel(-1, g_apple_sound, 0);
                 increaseMoney();
             }
             else if(val1 == STATE_FLAG || val2 == STATE_FLAG)

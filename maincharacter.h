@@ -83,6 +83,7 @@ private:
     bool is_respawning_;
     Mix_Chunk* g_shoot_sound = NULL;
     Mix_Chunk* g_jump_sound = NULL;
+    Mix_Chunk* g_apple_sound = NULL;
 };
 
 

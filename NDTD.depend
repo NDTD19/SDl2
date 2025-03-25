@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1742753216 source:c:\users\tien dung\desktop\ndtd\ndtd\main.cpp
+1742893534 source:c:\users\tien dung\desktop\ndtd\ndtd\main.cpp
 	<bits/stdc++.h>
 	<windows.h>
 	<tchar.h>
@@ -49,7 +49,7 @@
 	"menu.h"
 	<iostream>
 
-1742748441 c:\users\tien dung\desktop\ndtd\ndtd\maincharacter.h
+1742893139 c:\users\tien dung\desktop\ndtd\ndtd\maincharacter.h
 	<vector>
 	"CommonFunction.h"
 	"Base.h"
