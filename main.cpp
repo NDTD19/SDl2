@@ -73,13 +73,13 @@ bool LoadBackground()
     {
         bool ret = g_background.LoadImg("animation/bautroi.png", g_screen);
         if(ret == false)
-        return false;
+            return false;
     }
     else if(stt == 2)
     {
         bool ret = g_background.LoadImg("animation/background.png", g_screen);
         if(ret == false)
-        return false;
+            return false;
     }
 
 
@@ -183,6 +183,7 @@ int main(int argc, char *argv[])
     //chay menu
 
     GameMap game_map;
+    Mainobject player_;
     if(stt == 1)
     {
 //        cout << stt;
@@ -209,21 +210,22 @@ int main(int argc, char *argv[])
         }
         game_map.LoadMap("map/map02.dat");
         game_map.LoadTiles(g_screen);
-
+        player_.LoadImg("animation//right.png", g_screen, stt);
+        player_.set_clips(stt);
     }
     else if(stt == 2)
     {
         game_map.LoadMap("map/map01.dat");
         game_map.LoadTiles(g_screen);
-        stt = 0;
+        player_.LoadImg("animation//nhanvatright.png", g_screen, stt);
+//        int x = stt-1;
+        player_.set_clips(stt);
     }
 
 
 
     // chay nhan vat
-    Mainobject player_;
-    player_.LoadImg("animation//right.png", g_screen);
-    player_.set_clips();
+
     if (!player_.LoadSound())
     {
         return -1;
@@ -251,8 +253,6 @@ int main(int argc, char *argv[])
     bool mRet = exp_main.LoadImg("animation//exp3.png", g_screen);
     if(!mRet) return -1;
     exp_main.set_clips();
-    // so lan chet
-    int num_die = 0;
 
     // chỉ số thời gian
 
@@ -281,7 +281,7 @@ int main(int argc, char *argv[])
             {
                 is_quit = true;
             }
-            player_.HandelInputAction(g_event, g_screen);
+            player_.HandelInputAction(g_event, g_screen, stt);
         }
 
         SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR);
@@ -296,7 +296,7 @@ int main(int argc, char *argv[])
         player_.SetMapXY(map_data.start_x, map_data.start_y);
         player_.Doplayer(map_data, icon_image);
 
-        player_.Show(g_screen);
+        player_.Show(g_screen, stt);
 
         game_map.SetMap(map_data);
         game_map.DrawMap(g_screen);
@@ -327,7 +327,6 @@ int main(int argc, char *argv[])
                         bCol1 = SDLCommonFunc::CheckCollision(pt_bullet->GetRect(), rect_player);
                         if (bCol1 == true)
                         {
-
                             p_threat->RemoveBullet(jj, g_screen);
                             break;
                         }
@@ -373,6 +372,7 @@ int main(int argc, char *argv[])
             }
         }
 
+        int solanchet = 0;
         int frame_exp_width = exp_threat.get_frame_width();
         int frame_exp_height = exp_threat.get_frame_height();
         std::vector<BulletObject*>bullet_arr = player_.get_bullet_list();
@@ -395,8 +395,7 @@ int main(int argc, char *argv[])
                         SDL_Rect bRect = p_bullet->GetRect();
 
                         bool bCol = SDLCommonFunc::CheckCollision(bRect, trect);
-
-                        if(bCol)
+                        if(bCol && stt == 1)
                         {
                             Mix_PlayChannel(-1, g_hit_sound, 0);
                             score_value++;
@@ -407,13 +406,37 @@ int main(int argc, char *argv[])
 
                                 exp_threat.set_frame(j);
                                 exp_threat.SetRect(x_pos, y_pos);
-//                                SDL_Delay(100);
                                 exp_threat.Show(g_screen);
                             }
 
                             player_.RemoveBullet(i);
                             obj_threat->Free();
                             threats_list.erase(threats_list.begin() + t);
+                        }
+                        else if(bCol && stt == 2)
+                        {
+//                            if(solanchet == 0)
+//                            {
+//                                solanchet++;
+//                                player_.RemoveBullet(i);
+//                                break;
+//                            }
+                            Mix_PlayChannel(-1, g_hit_sound, 0);
+                            score_value++;
+                            for(int j = 0; j < 8; j++)
+                            {
+                                int x_pos = p_bullet->GetRect().x - frame_exp_height * 0.5;
+                                int y_pos = p_bullet->GetRect().y - frame_exp_height * 0.5;
+
+                                exp_threat.set_frame(j);
+                                exp_threat.SetRect(x_pos, y_pos);
+                                exp_threat.Show(g_screen);
+                            }
+
+                            player_.RemoveBullet(i);
+                            obj_threat->Free();
+                            threats_list.erase(threats_list.begin() + t);
+//                            solanchet = 0;
                         }
                     }
                 }
@@ -463,9 +486,14 @@ int main(int argc, char *argv[])
             if(delay_time >= 0)
                 SDL_Delay(delay_time);
         }
+
+
+
+
         int flag_count = player_.Getflagcount();
         if (flag_count != 0) // Khi nhân vật đến cuối map
         {
+            if(stt == 2) stt = 0;
             if(stt == 1)
             {
                 TextObject win_text;
@@ -479,10 +507,23 @@ int main(int argc, char *argv[])
                 g_background.Render(g_screen, NULL);
                 win_text.RenderText(g_screen, SCREEN_WIDTH / 2 - 350, SCREEN_HEIGHT / 2 - 25);
                 SDL_RenderPresent(g_screen);
-                Mix_HaltMusic();
-                Mix_HaltChannel(-1);
+                Mix_PauseMusic();
                 SDL_Delay(2000);
-//                close();
+                IMG_Quit();
+                TTF_Quit();
+                if (!player_.LoadSound())
+                {
+                    return -1;
+                }
+                g_background_music = Mix_LoadMUS("sound/amthanhnen.mp3");
+                g_hit_sound = Mix_LoadWAV("sound/Explosion+1.wav");
+                if (g_background_music == NULL || g_hit_sound == NULL)
+                {
+                    cout << "Failed to reload sound! SDL_mixer Error: " << Mix_GetError() << endl;
+                    return -1;
+                }
+
+                Mix_ResumeMusic();  // Tiếp tục phát nhạc nền
                 main(argc, argv); // Quay lại menu
             }
             // Tải ảnh chiến thắng
@@ -498,12 +539,23 @@ int main(int argc, char *argv[])
             win_image.Render(g_screen, NULL);
             SDL_RenderPresent(g_screen);
 
-            Mix_HaltMusic();
-            Mix_HaltChannel(-1); // Dừng tất cả âm thanh
-            SDL_Delay(2000);  // Hiển thị ảnh trong 3 giây
-//            win_image.Free();
+            Mix_PauseMusic();
+            SDL_Delay(2000);
+            IMG_Quit();
+            TTF_Quit();
+            if (!player_.LoadSound())
+            {
+                return -1;
+            }
+            g_background_music = Mix_LoadMUS("sound/amthanhnen.mp3");
+            g_hit_sound = Mix_LoadWAV("sound/Explosion+1.wav");
+            if (g_background_music == NULL || g_hit_sound == NULL)
+            {
+                cout << "Failed to reload sound! SDL_mixer Error: " << Mix_GetError() << endl;
+                return -1;
+            }
 
-//            close();
+            Mix_ResumeMusic();  // Tiếp tục phát nhạc nền
             main(argc, argv); // Quay lại menu
             return 0;
         }

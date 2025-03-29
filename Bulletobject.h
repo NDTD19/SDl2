@@ -22,6 +22,7 @@ public:
     };
     enum BulletType
     {
+        circle_bullet = 52,
         Straight_bullet = 50,
         Laze_bullet = 51,
     };

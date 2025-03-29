@@ -25,6 +25,10 @@ bool BulletObject::LoadImgBullet(SDL_Renderer* des)
     {
         ret = LoadImg("animation//bullet1.png", des);
     }
+    else if(bullet_type == circle_bullet)
+    {
+        ret = LoadImg("animation//bullet2.png", des);
+    }
 
     return ret;
 }

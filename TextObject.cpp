@@ -72,7 +72,7 @@ void TextObject::RenderText(SDL_Renderer* screen, int xp, int yp, SDL_Rect* clip
         renderQuad.h = clip->h;
     }
 
-    // Sử dụng SDL_RenderCopyEx thay vì SDL_RenderCopy để hỗ trợ xoay và lật
+    // Sử dụng SDL_RenderCopyEx để hỗ trợ xoay và lật
     SDL_RenderCopyEx(screen, Texture_, clip, &renderQuad, angle, center, flip);
 }
 

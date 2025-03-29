@@ -30,12 +30,17 @@ Mainobject::~Mainobject()
 
 }
 
-bool Mainobject::LoadImg(std::string path, SDL_Renderer* screen)
+bool Mainobject::LoadImg(std::string path, SDL_Renderer* screen, int& stt)
 {
     bool ret = Base::LoadImg(path, screen);
-    if(ret == true)
+    if(ret == true && stt == 1)
     {
         width_frame = rect_.w/12;
+        height_frame = rect_.h;
+    }
+    else if(ret == true && stt == 2)
+    {
+        width_frame = rect_.w/4;
         height_frame = rect_.h;
     }
     return ret;
@@ -52,70 +57,98 @@ SDL_Rect Mainobject::GetRectFrame()
     return rect;
 }
 
-void Mainobject::set_clips()
+void Mainobject::set_clips(int& stt)
 {
-    if(width_frame > 0 && height_frame > 0)
+    if(stt == 1)
     {
-        frame_clip[0].x = 0;
-        frame_clip[0].y = 0;
-        frame_clip[0].w = width_frame;
-        frame_clip[0].h = height_frame;
+        if(width_frame > 0 && height_frame > 0)
+        {
+            frame_clip[0].x = 0;
+            frame_clip[0].y = 0;
+            frame_clip[0].w = width_frame;
+            frame_clip[0].h = height_frame;
 
-        frame_clip[1].x = width_frame;
-        frame_clip[1].y = 0;
-        frame_clip[1].w = width_frame;
-        frame_clip[1].h = height_frame;
+            frame_clip[1].x = width_frame;
+            frame_clip[1].y = 0;
+            frame_clip[1].w = width_frame;
+            frame_clip[1].h = height_frame;
 
-        frame_clip[2].x = 2*width_frame;
-        frame_clip[2].y = 0;
-        frame_clip[2].w = width_frame;
-        frame_clip[2].h = height_frame;
+            frame_clip[2].x = 2*width_frame;
+            frame_clip[2].y = 0;
+            frame_clip[2].w = width_frame;
+            frame_clip[2].h = height_frame;
 
-        frame_clip[3].x = 3*width_frame;
-        frame_clip[3].y = 0;
-        frame_clip[3].w = width_frame;
-        frame_clip[3].h = height_frame;
+            frame_clip[3].x = 3*width_frame;
+            frame_clip[3].y = 0;
+            frame_clip[3].w = width_frame;
+            frame_clip[3].h = height_frame;
 
-        frame_clip[4].x = 4*width_frame;
-        frame_clip[4].y = 0;
-        frame_clip[4].w = width_frame;
-        frame_clip[4].h = height_frame;
+            frame_clip[4].x = 4*width_frame;
+            frame_clip[4].y = 0;
+            frame_clip[4].w = width_frame;
+            frame_clip[4].h = height_frame;
 
-        frame_clip[5].x = 5*width_frame;
-        frame_clip[5].y = 0;
-        frame_clip[5].w = width_frame;
-        frame_clip[5].h = height_frame;
+            frame_clip[5].x = 5*width_frame;
+            frame_clip[5].y = 0;
+            frame_clip[5].w = width_frame;
+            frame_clip[5].h = height_frame;
 
-        frame_clip[6].x = 6*width_frame;
-        frame_clip[6].y = 0;
-        frame_clip[6].w = width_frame;
-        frame_clip[6].h = height_frame;
+            frame_clip[6].x = 6*width_frame;
+            frame_clip[6].y = 0;
+            frame_clip[6].w = width_frame;
+            frame_clip[6].h = height_frame;
 
-        frame_clip[7].x = 7*width_frame;
-        frame_clip[7].y = 0;
-        frame_clip[7].w = width_frame;
-        frame_clip[7].h = height_frame;
+            frame_clip[7].x = 7*width_frame;
+            frame_clip[7].y = 0;
+            frame_clip[7].w = width_frame;
+            frame_clip[7].h = height_frame;
 
-        frame_clip[8].x = 8*width_frame;
-        frame_clip[8].y = 0;
-        frame_clip[8].w = width_frame;
-        frame_clip[8].h = height_frame;
+            frame_clip[8].x = 8*width_frame;
+            frame_clip[8].y = 0;
+            frame_clip[8].w = width_frame;
+            frame_clip[8].h = height_frame;
 
-        frame_clip[9].x = 9*width_frame;
-        frame_clip[9].y = 0;
-        frame_clip[9].w = width_frame;
-        frame_clip[9].h = height_frame;
+            frame_clip[9].x = 9*width_frame;
+            frame_clip[9].y = 0;
+            frame_clip[9].w = width_frame;
+            frame_clip[9].h = height_frame;
 
-        frame_clip[10].x = 10*width_frame;
-        frame_clip[10].y = 0;
-        frame_clip[10].w = width_frame;
-        frame_clip[10].h = height_frame;
+            frame_clip[10].x = 10*width_frame;
+            frame_clip[10].y = 0;
+            frame_clip[10].w = width_frame;
+            frame_clip[10].h = height_frame;
 
-        frame_clip[11].x = 11*width_frame;
-        frame_clip[11].y = 0;
-        frame_clip[11].w = width_frame;
-        frame_clip[11].h = height_frame;
+            frame_clip[11].x = 11*width_frame;
+            frame_clip[11].y = 0;
+            frame_clip[11].w = width_frame;
+            frame_clip[11].h = height_frame;
 
+        }
+    }
+    else if(stt == 2)
+    {
+        if(width_frame > 0 && height_frame > 0)
+        {
+            frame_clip[0].x = 0;
+            frame_clip[0].y = 0;
+            frame_clip[0].w = width_frame;
+            frame_clip[0].h = height_frame;
+
+            frame_clip[1].x = width_frame;
+            frame_clip[1].y = 0;
+            frame_clip[1].w = width_frame;
+            frame_clip[1].h = height_frame;
+
+            frame_clip[2].x = 2*width_frame;
+            frame_clip[2].y = 0;
+            frame_clip[2].w = width_frame;
+            frame_clip[2].h = height_frame;
+
+            frame_clip[3].x = 3*width_frame;
+            frame_clip[3].y = 0;
+            frame_clip[3].w = width_frame;
+            frame_clip[3].h = height_frame;
+        }
     }
 }
 
@@ -128,18 +161,33 @@ void Mainobject::increaseFlag()
     flag_count++;
 }
 
-void Mainobject::Show(SDL_Renderer* des)
+void Mainobject::Show(SDL_Renderer* des, int& stt)
 {
 //    if(on_ground == true)
 //    {
-    if(status_ == WALK_LEFT)
+    if(stt == 1)
     {
-        LoadImg("animation//left.png",des);
+        if(status_ == WALK_LEFT)
+        {
+            LoadImg("animation//left.png",des, stt);
+        }
+        else
+        {
+            LoadImg("animation//right.png",des, stt);
+        }
     }
-    else
+    else if(stt == 2)
     {
-        LoadImg("animation//right.png",des);
+        if(status_ == WALK_LEFT)
+        {
+            LoadImg("animation//nhanvatleft.png",des, stt);
+        }
+        else
+        {
+            LoadImg("animation//nhanvatright.png",des, stt);
+        }
     }
+
 //    }
     if(input_type_.left_ == 1 || input_type_.right_ == 1)
     {
@@ -150,11 +198,14 @@ void Mainobject::Show(SDL_Renderer* des)
         frame_ = 0;
     }
 
-    if(frame_ >= 12)
+    if(frame_ >= 12 && stt == 1)
     {
         frame_ = 0;
     }
-
+    else if(frame_ >= 4 && stt == 2)
+    {
+        frame_ = 0;
+    }
     // vị trí
     if(comeback_time == 0)
     {
@@ -182,7 +233,7 @@ bool Mainobject::LoadSound()
     return true;
 }
 
-void Mainobject::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
+void Mainobject::HandelInputAction(SDL_Event events, SDL_Renderer* screen, int& stt)
 {
     if(events.type == SDL_KEYDOWN)
     {
@@ -212,18 +263,36 @@ void Mainobject::HandelInputAction(SDL_Event events, SDL_Renderer* screen)
         case SDLK_SPACE:
         {
             BulletObject* p_bullet = new BulletObject();
-            p_bullet->set_bullet_type(BulletObject::Straight_bullet);
+            if(stt == 1)
+            {
+                p_bullet->set_bullet_type(BulletObject::Straight_bullet);
+                if(status_ == WALK_LEFT)
+                {
+                    p_bullet->set_bullet_dir(BulletObject::DIR_LEFT);
+                    p_bullet->SetRect(this->rect_.x, rect_.y + height_frame *0.3);
+                }
+                else if(status_ == WALK_RIGHT)
+                {
+                    p_bullet->set_bullet_dir(BulletObject::DIR_RIGHT);
+                    p_bullet->SetRect(this->rect_.x + width_frame - 20, rect_.y + height_frame *0.3);
+                }
+            }
+            else if(stt == 2)
+            {
+                p_bullet->set_bullet_type(BulletObject::circle_bullet);
+                if(status_ == WALK_LEFT)
+                {
+                    p_bullet->set_bullet_dir(BulletObject::DIR_LEFT);
+                    p_bullet->SetRect(this->rect_.x, rect_.y + height_frame *0.55);
+                }
+                else if(status_ == WALK_RIGHT)
+                {
+                    p_bullet->set_bullet_dir(BulletObject::DIR_RIGHT);
+                    p_bullet->SetRect(this->rect_.x + width_frame - 20, rect_.y + height_frame *0.55);
+                }
+            }
             p_bullet->LoadImgBullet(screen);
-            if(status_ == WALK_LEFT)
-            {
-                p_bullet->set_bullet_dir(BulletObject::DIR_LEFT);
-                p_bullet->SetRect(this->rect_.x, rect_.y + height_frame *0.3);
-            }
-            else if(status_ == WALK_RIGHT)
-            {
-                p_bullet->set_bullet_dir(BulletObject::DIR_RIGHT);
-                p_bullet->SetRect(this->rect_.x + width_frame - 20, rect_.y + height_frame *0.3);
-            }
+
 
             p_bullet->Set_x_val(20);
             p_bullet->set_is_move(true);
@@ -279,8 +348,8 @@ void Mainobject::HandleBullet(SDL_Renderer* des)
                 int bullet_distance_left = rect_.x - p_bullet->GetRect().x + width_frame;
                 int bullet_distance_right = p_bullet->GetRect().x - rect_.x + width_frame;
 
-                if((bullet_distance_left > 0 && bullet_distance_left < 600) ||
-                        (bullet_distance_right > 0 && bullet_distance_right < 600))
+                if((bullet_distance_left > 0 && bullet_distance_left < 700) ||
+                        (bullet_distance_right > 0 && bullet_distance_right < 700))
                 {
                     p_bullet->HandleMove(SCREEN_WIDTH, SCREEN_HEIGHT);
                     p_bullet->Render(des);

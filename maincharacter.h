@@ -26,10 +26,10 @@ public:
         WALK_LEFT = 1,
     };
 
-    bool LoadImg(std::string path, SDL_Renderer* screen);
-    void Show(SDL_Renderer* des);
-    void HandelInputAction(SDL_Event events, SDL_Renderer* screen);
-    void set_clips(); // xử lý hình ảnh cho frame
+    bool LoadImg(std::string path, SDL_Renderer* screen, int& stt);
+    void Show(SDL_Renderer* des, int& stt);
+    void HandelInputAction(SDL_Event events, SDL_Renderer* screen, int& stt);
+    void set_clips(int& stt); // xử lý hình ảnh cho frame
 
     void Doplayer(Map& map_data, ImageIcon& icon_image); //check giới hạn bản đồ kiểm tra va chạm
     void CheckMap(Map& map_data, ImageIcon& icon_image); // check nó rơi xuống chạm vào map
