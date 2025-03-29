@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1743156372 source:c:\users\tien dung\desktop\ndtd\ndtd\main.cpp
+1743276287 source:c:\users\tien dung\desktop\ndtd\ndtd\main.cpp
 	<bits/stdc++.h>
 	<windows.h>
 	<tchar.h>
@@ -13,6 +13,7 @@
 	"Exobject.h"
 	"TextObject.h"
 	"image_icon.h"
+	"pause.h"
 
 1742398653 source:c:\users\tien dung\desktop\ndtd\ndtd\commonfunction.cpp
 	<bits/stdc++.h>
@@ -26,11 +27,11 @@
 	<SDL_ttf.h>
 	<SDL_mixer.h>
 
-1741707704 source:c:\users\tien dung\desktop\ndtd\ndtd\base.cpp
+1743274806 source:c:\users\tien dung\desktop\ndtd\ndtd\base.cpp
 	<bits/stdc++.h>
 	"Base.h"
 
-1741537761 c:\users\tien dung\desktop\ndtd\ndtd\base.h
+1743274792 c:\users\tien dung\desktop\ndtd\ndtd\base.h
 	"CommonFunction.h"
 
 1742753354 source:c:\users\tien dung\desktop\ndtd\ndtd\game_map.cpp
@@ -49,7 +50,7 @@
 	"menu.h"
 	<iostream>
 
-1742896551 c:\users\tien dung\desktop\ndtd\ndtd\maincharacter.h
+1743277630 c:\users\tien dung\desktop\ndtd\ndtd\maincharacter.h
 	<vector>
 	"CommonFunction.h"
 	"Base.h"
@@ -57,7 +58,7 @@
 	"image_icon.h"
 	"game_map.h"
 
-1742897286 source:c:\users\tien dung\desktop\ndtd\ndtd\maincharacter.cpp
+1743245865 source:c:\users\tien dung\desktop\ndtd\ndtd\maincharacter.cpp
 	<bits/stdc++.h>
 	"maincharacter.h"
 
@@ -101,11 +102,18 @@
 1742489069 c:\users\tien dung\desktop\ndtd\ndtd\textobject.h
 	"CommonFunction.h"
 
-1742556620 source:c:\users\tien dung\desktop\ndtd\ndtd\image_icon.cpp
+1743278091 source:c:\users\tien dung\desktop\ndtd\ndtd\image_icon.cpp
 	<bits/stdc++.h>
 	"image_icon.h"
 
-1742556626 c:\users\tien dung\desktop\ndtd\ndtd\image_icon.h
+1743278091 c:\users\tien dung\desktop\ndtd\ndtd\image_icon.h
 	"CommonFunction.h"
 	"Base.h"
+
+1743276155 source:c:\users\tien dung\desktop\ndtd\ndtd\pause.cpp
+	"pause.h"
+	<iostream>
+
+1743276155 c:\users\tien dung\desktop\ndtd\ndtd\pause.h
+	"CommonFunction.h"
 

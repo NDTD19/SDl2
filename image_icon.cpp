@@ -4,6 +4,7 @@
 ImageIcon::ImageIcon()
 {
     number_ = 0;
+    max_lives = 3;
 }
 
 ImageIcon::~ImageIcon()

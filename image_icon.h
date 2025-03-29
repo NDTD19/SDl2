@@ -16,11 +16,12 @@ public:
     void Init(SDL_Renderer* screen);
     void InitCrease();
     void Decrease();
+    int GetMaxLives() const { return max_lives; }
 
 private:
     int number_;
     std::vector<int> pos_list;//vi tri them chi so mang
-
+    int max_lives;
 
 };
 

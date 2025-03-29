@@ -55,6 +55,8 @@
 		<Unit filename="maincharacter.h" />
 		<Unit filename="menu.cpp" />
 		<Unit filename="menu.h" />
+		<Unit filename="pause.cpp" />
+		<Unit filename="pause.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

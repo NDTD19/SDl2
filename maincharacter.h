@@ -31,6 +31,7 @@ public:
     void HandelInputAction(SDL_Event events, SDL_Renderer* screen, int& stt);
     void set_clips(int& stt); // xử lý hình ảnh cho frame
 
+    void Setapplecount(int count) { money_count = count; }
     void Doplayer(Map& map_data, ImageIcon& icon_image); //check giới hạn bản đồ kiểm tra va chạm
     void CheckMap(Map& map_data, ImageIcon& icon_image); // check nó rơi xuống chạm vào map
     void SetMapXY(const int mapx, const int mapy) { map_x_ = mapx; map_y_ = mapy; }
