@@ -263,16 +263,16 @@ int main(int argc, char *argv[])
     apple_icon.SetPos(SCREEN_WIDTH*0.5-295,5);
 
     // Load pause texture
-    if (!pauseButton.loadButtonTexture(g_screen, "pause.png"))
+    if (!pauseButton.loadButtonTexture(g_screen, "animation/pause.png"))
     {
         return -1;
     }
     // Load pause menu textures
-    if (!pauseMenu.loadContinueTexture(g_screen, "resume.png"))
+    if (!pauseMenu.loadContinueTexture(g_screen, "animation/resume.png"))
     {
         return -1;
     }
-    if (!pauseMenu.loadMenuTexture(g_screen, "restart.png"))
+    if (!pauseMenu.loadMenuTexture(g_screen, "animation/restart.png"))
     {
         return -1;
     }
@@ -507,12 +507,6 @@ int main(int argc, char *argv[])
                             }
                             else if(bCol && stt == 2)
                             {
-//                            if(solanchet == 0)
-//                            {
-//                                solanchet++;
-//                                player_.RemoveBullet(i);
-//                                break;
-//                            }
                                 Mix_PlayChannel(-1, g_hit_sound, 0);
                                 score_value++;
                                 for(int j = 0; j < 8; j++)
@@ -528,7 +522,6 @@ int main(int argc, char *argv[])
                                 player_.RemoveBullet(i);
                                 obj_threat->Free();
                                 threats_list.erase(threats_list.begin() + t);
-//                            solanchet = 0;
                             }
                         }
                     }
