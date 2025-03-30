@@ -192,7 +192,7 @@ std::vector<ThreatsObject*> MakeThreatList()
 
 void gameOverAndExit()
 {
-    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Info", "GAME OVER", NULL);
+
     SDL_Quit();
     exit(0);
 }
@@ -372,15 +372,15 @@ int main(int argc, char *argv[])
             else
             {
                 int menuAction = pauseMenu.handlePauseInput(&g_event, SCREEN_WIDTH, SCREEN_HEIGHT);
-                if (menuAction == 1)    // Continue
+                if (menuAction == 1)
                 {
                     isPaused = false;
                     Mix_ResumeMusic();
                 }
-                else if (menuAction == 2)      // Back to menu
+                else if (menuAction == 2)
                 {
-                    Mix_HaltMusic();  // Stop the music entirely
-                    restartMain(argc, argv);  // Cleanly restart the main function (go to menu)
+                    Mix_HaltMusic();
+                    restartMain(argc, argv);
 
                 }
             }
@@ -416,13 +416,9 @@ int main(int argc, char *argv[])
                 player_.Setapplecount(appleCount - lifeBonusThreshold); // Trừ táo
                 appleCount -= lifeBonusThreshold;
 
-                // Cập nhật số mạng trên màn hình
-                icon_image.InitCrease(); // Tăng số lượng (chuẩn bị)
-                //  icon_image.Init(g_screen, stt);  //GỌI LẠI INNIT KHI MÀ CẬP NHẬT SỐ LƯỢNG
+                icon_image.InitCrease();
             }
-            // ....
-            // Trong vòng lặp chính (main loop):
-            icon_image.Show(g_screen); // HOẶC ICON_IMAGE.RENDER(g_screen);
+            icon_image.Show(g_screen);
 
 
             for(int  i = 0; i < threats_list.size(); i++)
@@ -488,9 +484,27 @@ int main(int argc, char *argv[])
                         }
                         else
                         {
+
+                            Base lose_image;
+                            bool lose_loaded = lose_image.LoadImg("animation/lose_screen.png", g_screen);
+                            if (!lose_loaded)
+                            {
+                                cout << "Failed to load lose image!" << endl;
+                            }
+
+                            // Hiển thị ảnh thua cuộc
+                            SDL_SetRenderDrawColor(g_screen, 0, 0, 0, 255);
+                            SDL_RenderClear(g_screen);
+                            if(lose_loaded) {
+                                lose_image.Render(g_screen, NULL);
+                            }
+                            SDL_RenderPresent(g_screen);
+
+                            Mix_PauseMusic();
+                            SDL_Delay(2000);
                             p_threat->Free();
                             close();
-                            gameOverAndExit();
+                            restartMain(argc, argv); // Quay lại menu
                         }
 
                     }
@@ -634,7 +648,9 @@ int main(int argc, char *argv[])
                 SDL_RenderPresent(g_screen);
                 Mix_PauseMusic();
                 SDL_Delay(2000);
+                SDL_DestroyWindow(g_window);
                 TTF_Quit();
+                Mix_HaltMusic();
                 if (!player_.LoadSound())
                 {
                     return -1;
