@@ -34,7 +34,7 @@ void close()
 
 void restartMain(int argc, char* argv[])
 {
-//    close();
+    close();
 
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
