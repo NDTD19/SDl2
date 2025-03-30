@@ -19,7 +19,8 @@ TTF_Font* font_time = NULL;
 Mix_Chunk* g_hit_sound = NULL;
 Mix_Music* g_background_music = NULL;
 
-void close() {
+void close()
+{
     g_background.Free();
     SDL_DestroyRenderer(g_screen);
     g_screen = NULL;
@@ -31,7 +32,8 @@ void close() {
     SDL_Quit();
 }
 
-void restartMain(int argc, char* argv[]) {
+void restartMain(int argc, char* argv[])
+{
 //    close();
 
     STARTUPINFO si;
@@ -54,12 +56,15 @@ void restartMain(int argc, char* argv[]) {
                 NULL,
                 &si,
                 &pi
-            )) {
+            ))
+    {
         WaitForSingleObject(pi.hProcess, INFINITE);
 
         CloseHandle(pi.hProcess);
         CloseHandle(pi.hThread);
-    } else {
+    }
+    else
+    {
         cerr << "CreateProcess failed (" << GetLastError() << ")" << endl;
     }
 
@@ -67,52 +72,68 @@ void restartMain(int argc, char* argv[]) {
     exit(0);
 }
 
-bool InitData() {
+bool InitData()
+{
     bool success = true;
     int ret = SDL_Init(SDL_INIT_VIDEO);
-    if (ret < 0) {
+    if (ret < 0)
+    {
         return false;
     }
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
     g_window = SDL_CreateWindow("NDTD", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
                                 SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    if (g_window == NULL) {
+    if (g_window == NULL)
+    {
         success = false;
-    } else {
+    }
+    else
+    {
         g_screen = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_ACCELERATED);
-        if (g_screen == NULL) {
+        if (g_screen == NULL)
+        {
             success = false;
-        } else {
+        }
+        else
+        {
             SDL_SetRenderDrawColor(g_screen, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR,
                                    RENDER_DRAW_COLOR);
             int imgFlags = IMG_INIT_PNG;
-            if (!(IMG_Init(imgFlags) && imgFlags)) {
+            if (!(IMG_Init(imgFlags) && imgFlags))
+            {
                 success = false;
             }
         }
-        if (TTF_Init() == -1) {
+        if (TTF_Init() == -1)
+        {
             success = false;
         }
 
-        if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+        {
             cout << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << endl;
             success = false;
         }
 
         font_time = TTF_OpenFont("font//dlxfont_.ttf", 15);
-        if (font_time == NULL) {
+        if (font_time == NULL)
+        {
             success = false;
         }
     }
     return success;
 }
 int stt = 0;
-bool LoadBackground() {
-    if (stt == 1) {
+bool LoadBackground()
+{
+    if (stt == 1)
+    {
         bool ret = g_background.LoadImg("animation/bautroi.png", g_screen);
         if (ret == false) return false;
-    } else if (stt == 2) {
+    }
+    else if (stt == 2)
+    {
         bool ret = g_background.LoadImg("animation/background.png", g_screen);
         if (ret == false) return false;
     }
@@ -120,14 +141,17 @@ bool LoadBackground() {
     return true;
 }
 
-std::vector<ThreatsObject*> MakeThreatList() {
+std::vector<ThreatsObject*> MakeThreatList()
+{
     std::vector<ThreatsObject*> list_threats;
 
     ThreatsObject* dynamic_threats = new ThreatsObject[30];
 
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < 30; i++)
+    {
         ThreatsObject* p_threat = (dynamic_threats + i);
-        if (p_threat != NULL) {
+        if (p_threat != NULL)
+        {
             p_threat->LoadImg("animation/skeletonleft.png", g_screen);
             p_threat->Set_clips();
             p_threat->set_type_move(ThreatsObject::MOVE_IN_SPACE_THREAT);
@@ -145,9 +169,11 @@ std::vector<ThreatsObject*> MakeThreatList() {
 
     ThreatsObject* threats_objs = new ThreatsObject[10];
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         ThreatsObject* p_threat = (threats_objs + i);
-        if (p_threat != NULL) {
+        if (p_threat != NULL)
+        {
             p_threat->LoadImg("animation/kedich1left.png", g_screen);
             p_threat->Set_clips();
             p_threat->set_x_pos(700 + i * 1200);
@@ -164,7 +190,8 @@ std::vector<ThreatsObject*> MakeThreatList() {
     return list_threats;
 }
 
-void gameOverAndExit() {
+void gameOverAndExit()
+{
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Info", "GAME OVER", NULL);
     SDL_Quit();
     exit(0);
@@ -256,7 +283,7 @@ int main(int argc, char *argv[])
     }
 
     ImageIcon icon_image;
-    icon_image.Init(g_screen);
+    icon_image.Init(g_screen, stt);
 
     Appleicon apple_icon;
     apple_icon.Init(g_screen);
@@ -382,16 +409,22 @@ int main(int argc, char *argv[])
             icon_image.Show(g_screen);
             apple_icon.Show(g_screen);
 
-                 int appleCount = player_.Getapplecount();
-                if (appleCount >= lifeBonusThreshold && remainingLives < maxLives)
-                {
-                    remainingLives++;
-                    player_.Setapplecount(appleCount - lifeBonusThreshold); // Trừ táo
-                    appleCount -= lifeBonusThreshold;
+            int appleCount = player_.Getapplecount();
+            if (appleCount >= lifeBonusThreshold && remainingLives < maxLives)
+            {
+                remainingLives++;
+                player_.Setapplecount(appleCount - lifeBonusThreshold); // Trừ táo
+                appleCount -= lifeBonusThreshold;
 
-                    // Cập nhật số mạng trên màn hình
-                    icon_image.InitCrease();
-                }
+                // Cập nhật số mạng trên màn hình
+                icon_image.InitCrease(); // Tăng số lượng (chuẩn bị)
+                //  icon_image.Init(g_screen, stt);  //GỌI LẠI INNIT KHI MÀ CẬP NHẬT SỐ LƯỢNG
+            }
+            // ....
+            // Trong vòng lặp chính (main loop):
+            icon_image.Show(g_screen); // HOẶC ICON_IMAGE.RENDER(g_screen);
+
+
             for(int  i = 0; i < threats_list.size(); i++)
             {
                 ThreatsObject* p_threat = threats_list.at(i);
@@ -445,7 +478,8 @@ int main(int argc, char *argv[])
                             player_.set_comeback_time(60);
                             SDL_Delay(800);
                             icon_image.Decrease();
-                             if (remainingLives > 0) {
+                            if (remainingLives > 0)
+                            {
                                 remainingLives--;
                                 num_die = 0;
                             }
@@ -587,7 +621,7 @@ int main(int argc, char *argv[])
             if(stt == 2) stt = 0;
             if(stt == 1)
             {
-                 TextObject win_text;
+                TextObject win_text;
                 win_text.SetColor(TextObject::RED_TEXT);
                 font_time = TTF_OpenFont("font//dlxfont_.ttf", 30);
                 win_text.SetText("YOU CONTINUE TO PART 2");

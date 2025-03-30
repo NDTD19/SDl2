@@ -17,12 +17,23 @@ void ImageIcon::AddPos(const int& xPos)
     pos_list.push_back(xPos);
 }
 
-void ImageIcon::Init(SDL_Renderer* screen)
+void ImageIcon::Init(SDL_Renderer* screen, int& stt)
 {
-    bool ret = LoadImg("animation/icon.png", screen);
-    if(ret == NULL)
+    if(stt == 1)
     {
-        printf("ko chay dc");
+        bool ret = LoadImg("animation/icon.png", screen);
+        if(ret == NULL)
+        {
+            printf("ko chay dc");
+        }
+    }
+    else if(stt == 2)
+    {
+        bool ret = LoadImg("animation/icon1.png", screen);
+        if(ret == NULL)
+        {
+            printf("ko chay dc");
+        }
     }
     number_ = 3;
     if(pos_list.size() > 0)
@@ -32,6 +43,17 @@ void ImageIcon::Init(SDL_Renderer* screen)
     AddPos(20);
     AddPos(60);
     AddPos(100);
+}
+
+int ImageIcon::ShowCrease()
+{
+    for(int i = 0; i < pos_list.size(); i++)
+    {
+        rect_.x = pos_list.at(i);
+        rect_.y = 0;
+
+    }
+     return pos_list.size();
 }
 
 void ImageIcon::Show(SDL_Renderer* screen)

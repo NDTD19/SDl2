@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1743279356 source:c:\users\tien dung\desktop\ndtd\ndtd\main.cpp
+1743327007 source:c:\users\tien dung\desktop\ndtd\ndtd\main.cpp
 	<bits/stdc++.h>
 	<windows.h>
 	<tchar.h>
@@ -102,11 +102,11 @@
 1742489069 c:\users\tien dung\desktop\ndtd\ndtd\textobject.h
 	"CommonFunction.h"
 
-1743278091 source:c:\users\tien dung\desktop\ndtd\ndtd\image_icon.cpp
+1743326240 source:c:\users\tien dung\desktop\ndtd\ndtd\image_icon.cpp
 	<bits/stdc++.h>
 	"image_icon.h"
 
-1743278091 c:\users\tien dung\desktop\ndtd\ndtd\image_icon.h
+1743326240 c:\users\tien dung\desktop\ndtd\ndtd\image_icon.h
 	"CommonFunction.h"
 	"Base.h"
 
